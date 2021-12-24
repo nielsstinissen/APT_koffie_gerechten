@@ -8,11 +8,14 @@ import java.util.List;
 
 @Repository
 public interface GerechtRepository extends MongoRepository<Gerecht, String> {
+    List<Gerecht> findAll();
     Gerecht findAllByNaamContaining(String naam);
-    List<Gerecht> findAllByVeganIsTrue();
+    List<Gerecht> findAllByIsVeganIsTrue();
     List<Gerecht> findAllByKcalIsLessThanEqual(double kcal);
-    List<Gerecht> findAllByVegetarischIsTrue();
+    List<Gerecht> findAllByIsVegetarischIsTrue();
     List<Gerecht> findAllByAantalPersonenEquals(int aantalPersonen);
     List<Gerecht> findAllByAfkomstContaining(String afkomst);
-    List<Gerecht> findAllByGlutenvrijIsTrue();
+    List<Gerecht> findAllByIsGlutenvrijIsTrue();
+    List<Gerecht> findAllByKoffieDrankId(int koffieDrankId);
+    Gerecht findByUrlIs(String url);
 }

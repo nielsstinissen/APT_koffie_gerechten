@@ -14,14 +14,17 @@ public class GerechtRestController{
     @Autowired
     private GerechtRepository gerechtRepository;
 
-    @PostConstruct
-    public void fillDB(){
-        if(gerechtRepository.count()==0){
-            gerechtRepository.save(new Gerecht("Vegan ijskoffie met havermelk", "", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
-            gerechtRepository.save(new Gerecht("tiramisu", "", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
-            gerechtRepository.save(new Gerecht("mokka ijs", "", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
-        }
-    }
+//    @PostConstruct
+//    public void fillDB(){
+//        if(gerechtRepository.count()==0){
+//            gerechtRepository.save(new Gerecht(1, "Vegan ijskoffie met havermelk", "Nederland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
+//            gerechtRepository.save(new Gerecht(4, "tiramisu", "Belgie", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk12"));
+//            gerechtRepository.save(new Gerecht(5, "mokka ijs", "Duitsland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk123"));
+//        }
+//    }
+
+    @GetMapping("/gerechten")
+    public List<Gerecht> getAll(){return gerechtRepository.findAll();}
 
     @GetMapping("/gerechten/naam/{naam}")
     public Gerecht getAllByNaam(@PathVariable String naam){
@@ -29,18 +32,18 @@ public class GerechtRestController{
     }
 
     @GetMapping("/gerechten/vegan")
-    public List<Gerecht> getAllByVeganIsTrue(){
-        return gerechtRepository.findAllByVeganIsTrue();
+    public List<Gerecht> getAllByIsVeganIsTrue(){
+        return gerechtRepository.findAllByIsVeganIsTrue();
     }
 
     @GetMapping("/gerechten/vegetarisch")
-    public List<Gerecht> getAllByVegetarischIsTrue(){
-        return gerechtRepository.findAllByVegetarischIsTrue();
+    public List<Gerecht> getAllByIsVegetarischIsTrue(){
+        return gerechtRepository.findAllByIsVegetarischIsTrue();
     }
 
     @GetMapping("/gerechten/glutenvrij")
-    public List<Gerecht> getAllByGlutenvrijIsTrue(){
-        return gerechtRepository.findAllByGlutenvrijIsTrue();
+    public List<Gerecht> getAllByIsGlutenvrijIsTrue(){
+        return gerechtRepository.findAllByIsGlutenvrijIsTrue();
     }
 
     @GetMapping("/gerechten/kcal/{kcal}")
@@ -58,16 +61,21 @@ public class GerechtRestController{
         return gerechtRepository.findAllByAfkomstContaining(afkomst);
     }
 
+    @GetMapping("/gerechten/koffiedrank/{koffieDrankId}")
+    public List<Gerecht> findAllByKoffieDrankId(@PathVariable int koffieDrankId){
+        return gerechtRepository.findAllByKoffieDrankId(koffieDrankId);
+    }
+
     @PostMapping("/gerechten/")
     public Gerecht createGerecht(@RequestBody Gerecht gerecht){
         gerechtRepository.save(gerecht);
         return gerecht;
     }
 
-    @PutMapping("/gerechten/naam/{naam}")
-    public Gerecht updateGerecht(@PathVariable String naam,@RequestBody Gerecht updatedGerecht){
+    @PutMapping("/gerechten/url/{url}")
+    public Gerecht updateGerecht(@PathVariable String url,@RequestBody Gerecht updatedGerecht){
 
-        Gerecht retrievedGerecht = gerechtRepository.findAllByNaamContaining(naam);
+        Gerecht retrievedGerecht = gerechtRepository.findByUrlIs(url);
         retrievedGerecht.setNaam(updatedGerecht.getNaam());
         retrievedGerecht.setAantalPersonen(updatedGerecht.getAantalPersonen());
         retrievedGerecht.setAfkomst(updatedGerecht.getAfkomst());
@@ -80,9 +88,9 @@ public class GerechtRestController{
         return retrievedGerecht;
     }
 
-    @DeleteMapping("/gerechten/naam/{naam}")
-    public ResponseEntity deleteGerecht(@PathVariable String naam){
-        Gerecht gerecht = gerechtRepository.findAllByNaamContaining(naam);
+    @DeleteMapping("/gerechten/url/{url}")
+    public ResponseEntity deleteGerecht(@PathVariable String url){
+        Gerecht gerecht = gerechtRepository.findByUrlIs(url);
         if(gerecht != null){
             gerechtRepository.delete(gerecht);
             return ResponseEntity.ok().build();

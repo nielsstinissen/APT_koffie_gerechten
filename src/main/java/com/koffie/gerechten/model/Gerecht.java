@@ -1,12 +1,14 @@
 package com.koffie.gerechten.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "gerechten")
 public class Gerecht {
     @Id
     private String id;
+    private int koffieDrankId;
     private String naam;
     private String afkomst;
     private double kcal;
@@ -14,10 +16,12 @@ public class Gerecht {
     private boolean isVegan;
     private boolean isVegetarisch;
     private int aantalPersonen;
+    @Indexed(unique=true)
     private String url;
 
-    public Gerecht(String naam, String afkomst, double kcal, boolean isGlutenvrij, boolean isVegan, boolean isVegetarisch, int aantalPersonen, String url) {
+    public Gerecht(int koffieDrankId, String naam, String afkomst, double kcal, boolean isGlutenvrij, boolean isVegan, boolean isVegetarisch, int aantalPersonen, String url) {
         this.naam = naam;
+        this.koffieDrankId = koffieDrankId;
         this.afkomst = afkomst;
         this.kcal = kcal;
         this.isGlutenvrij = isGlutenvrij;
@@ -100,5 +104,13 @@ public class Gerecht {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getKoffieDrankId() {
+        return koffieDrankId;
+    }
+
+    public void setKoffieDrankId(int koffieDrankId) {
+        this.koffieDrankId = koffieDrankId;
     }
 }
