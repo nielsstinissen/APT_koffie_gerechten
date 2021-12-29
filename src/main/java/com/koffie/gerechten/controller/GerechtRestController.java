@@ -14,14 +14,14 @@ public class GerechtRestController{
     @Autowired
     private GerechtRepository gerechtRepository;
 
-//    @PostConstruct
-//    public void fillDB(){
-//        if(gerechtRepository.count()==0){
-//            gerechtRepository.save(new Gerecht(1, "Vegan ijskoffie met havermelk", "Nederland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
-//            gerechtRepository.save(new Gerecht(4, "tiramisu", "Belgie", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk12"));
-//            gerechtRepository.save(new Gerecht(5, "mokka ijs", "Duitsland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk123"));
-//        }
-//    }
+    @PostConstruct
+    public void fillDB(){
+        if(gerechtRepository.count()==0){
+            gerechtRepository.save(new Gerecht(1, "Vegan ijskoffie met havermelk", "Nederland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
+            gerechtRepository.save(new Gerecht(4, "tiramisu", "Belgie", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk12"));
+            gerechtRepository.save(new Gerecht(5, "mokka ijs", "Duitsland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk123"));
+        }
+    }
 
     @GetMapping("/gerechten")
     public List<Gerecht> getAll(){return gerechtRepository.findAll();}
