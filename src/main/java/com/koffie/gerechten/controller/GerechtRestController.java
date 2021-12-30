@@ -1,6 +1,7 @@
 package com.koffie.gerechten.controller;
 
 import com.koffie.gerechten.model.Gerecht;
+import com.koffie.gerechten.model.GerechtDTO;
 import com.koffie.gerechten.repository.GerechtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -67,13 +68,15 @@ public class GerechtRestController{
     }
 
     @PostMapping("/gerechten/")
-    public Gerecht createGerecht(@RequestBody Gerecht gerecht){
+    public Gerecht createGerecht(@RequestBody GerechtDTO gerechtDTO){
+        Gerecht gerecht = convertGerechtDTOToGerecht(gerechtDTO);
         gerechtRepository.save(gerecht);
         return gerecht;
     }
 
     @PutMapping("/gerechten/url/{url}")
-    public Gerecht updateGerecht(@PathVariable String url,@RequestBody Gerecht updatedGerecht){
+    public Gerecht updateGerecht(@PathVariable String url,@RequestBody GerechtDTO updatedGerechtDTO){
+        Gerecht updatedGerecht = convertGerechtDTOToGerecht(updatedGerechtDTO);
 
         Gerecht retrievedGerecht = gerechtRepository.findByUrlIs(url);
         retrievedGerecht.setNaam(updatedGerecht.getNaam());
@@ -97,5 +100,21 @@ public class GerechtRestController{
         }else{
             return ResponseEntity.notFound().build();
         }
+    }
+
+    private Gerecht convertGerechtDTOToGerecht(GerechtDTO gerechtDTO){
+        Gerecht gerecht = new Gerecht();
+        gerecht.setId(gerechtDTO.getId());
+        gerecht.setNaam(gerechtDTO.getNaam());
+        gerecht.setVegetarisch(gerechtDTO.isVegetarisch());
+        gerecht.setVegan(gerechtDTO.isVegan());
+        gerecht.setUrl(gerechtDTO.getUrl());
+        gerecht.setGlutenvrij(gerechtDTO.isGlutenvrij());
+        gerecht.setKcal(gerechtDTO.getKcal());
+        gerecht.setAfkomst(gerechtDTO.getAfkomst());
+        gerecht.setAantalPersonen(gerechtDTO.getAantalPersonen());
+        gerecht.setKoffieDrankId(gerechtDTO.getKoffieDrankId());
+
+        return gerecht;
     }
 }
