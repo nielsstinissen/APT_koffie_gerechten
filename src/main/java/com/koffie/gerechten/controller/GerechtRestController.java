@@ -18,7 +18,7 @@ public class GerechtRestController{
     @PostConstruct
     public void fillDB(){
         if(gerechtRepository.count()==0){
-            gerechtRepository.save(new Gerecht("Caffé machiato", "Vegan ijskoffie met havermelk", "Nederland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
+            gerechtRepository.save(new Gerecht("Caffè machiato", "Vegan ijskoffie met havermelk", "Nederland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
             gerechtRepository.save(new Gerecht("Espresso", "tiramisu", "Belgie", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk12"));
             gerechtRepository.save(new Gerecht("Barraquito", "mokka ijs", "Duitsland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk123"));
         }
