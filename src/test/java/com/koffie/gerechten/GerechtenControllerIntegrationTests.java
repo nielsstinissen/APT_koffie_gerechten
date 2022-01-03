@@ -207,7 +207,7 @@ public class GerechtenControllerIntegrationTests {
 
         Gerecht updatedGerecht = new Gerecht("Espresso", "Gerecht31", "Nederland", 130, false, false, true, 4, "mock.url.be");
 
-        mockMvc.perform(put("/gerechten/url/{url}", "mock.url.be")
+        mockMvc.perform(put("/gerechten/naam/{naam}", "Gerecht1")
                 .content(mapper.writeValueAsString(updatedGerecht))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -224,14 +224,14 @@ public class GerechtenControllerIntegrationTests {
 
     @Test
     public void givenGerecht_whenDeleteGerecht_thenReturnStatusOk() throws Exception {
-        mockMvc.perform(delete("/gerechten/url/{url}", "mock.url.be")
+        mockMvc.perform(delete("/gerechten/naam/{naam}", "Gerecht1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void givenNoGerecht_whenDeleteGerecht_thenReturnStatusNotFound() throws Exception {
-        mockMvc.perform(delete("/gerechten/url/{url}", "noMock.url.be")
+        mockMvc.perform(delete("/gerechten/naam/{naam}", "Gerecht12345")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

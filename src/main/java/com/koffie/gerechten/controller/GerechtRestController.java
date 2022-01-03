@@ -74,11 +74,11 @@ public class GerechtRestController{
         return gerecht;
     }
 
-    @PutMapping("/gerechten/url/{url}")
-    public Gerecht updateGerecht(@PathVariable String url,@RequestBody GerechtDTO updatedGerechtDTO){
+    @PutMapping("/gerechten/naam/{naam}")
+    public Gerecht updateGerecht(@PathVariable String naam,@RequestBody GerechtDTO updatedGerechtDTO){
         Gerecht updatedGerecht = convertGerechtDTOToGerecht(updatedGerechtDTO);
 
-        Gerecht retrievedGerecht = gerechtRepository.findByUrlIs(url);
+        Gerecht retrievedGerecht = gerechtRepository.findByNaamIs(naam);
         retrievedGerecht.setNaam(updatedGerecht.getNaam());
         retrievedGerecht.setAantalPersonen(updatedGerecht.getAantalPersonen());
         retrievedGerecht.setAfkomst(updatedGerecht.getAfkomst());
@@ -91,9 +91,9 @@ public class GerechtRestController{
         return retrievedGerecht;
     }
 
-    @DeleteMapping("/gerechten/url/{url}")
-    public ResponseEntity deleteGerecht(@PathVariable String url){
-        Gerecht gerecht = gerechtRepository.findByUrlIs(url);
+    @DeleteMapping("/gerechten/naam/{naam}")
+    public ResponseEntity deleteGerecht(@PathVariable String naam){
+        Gerecht gerecht = gerechtRepository.findByNaamIs(naam);
         if(gerecht != null){
             gerechtRepository.delete(gerecht);
             return ResponseEntity.ok().build();

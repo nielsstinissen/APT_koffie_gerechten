@@ -17,5 +17,5 @@ public interface GerechtRepository extends MongoRepository<Gerecht, String> {
     List<Gerecht> findAllByAfkomstContaining(String afkomst);
     List<Gerecht> findAllByIsGlutenvrijIsTrue();
     List<Gerecht> findAllByKoffieDrankNaamContaining(String koffieDrankNaam);
-    Gerecht findByUrlIs(String url);
+    Gerecht findByNaamIs(String naam);
 }

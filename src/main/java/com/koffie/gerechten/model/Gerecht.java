@@ -9,6 +9,7 @@ public class Gerecht {
     @Id
     private String id;
     private String koffieDrankNaam;
+    @Indexed(unique=true)
     private String naam;
     private String afkomst;
     private double kcal;
@@ -16,7 +17,6 @@ public class Gerecht {
     private boolean isVegan;
     private boolean isVegetarisch;
     private int aantalPersonen;
-    @Indexed(unique=true)
     private String url;
 
     public Gerecht(String koffieDrankNaam, String naam, String afkomst, double kcal, boolean isGlutenvrij, boolean isVegan, boolean isVegetarisch, int aantalPersonen, String url) {

@@ -262,9 +262,9 @@ public class GerechtenControllerUnitTests {
 
         Gerecht updatedGerecht = new Gerecht("Café Machiato", "Gerecht31", "Nederland", 130, false, false, true, 4, "mock.url.be");
         Gerecht gerecht = new Gerecht("Espresso", "Gerecht1", "Belgie", 130, false, false, true, 4, "mock.url.be");
-        given(gerechtRepository.findByUrlIs("mock.url.be")).willReturn(gerecht);
+        given(gerechtRepository.findByNaamIs("Gerecht1")).willReturn(gerecht);
 
-        mockMvc.perform(put("/gerechten/url/{url}", "mock.url.be")
+        mockMvc.perform(put("/gerechten/naam/{naam}", "Gerecht1")
                 .content(mapper.writeValueAsString(updatedGerecht))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -283,17 +283,17 @@ public class GerechtenControllerUnitTests {
     public void givenGerecht_whenDeleteGerecht_thenReturnStatusOk() throws Exception {
         Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
 
-        given(gerechtRepository.findByUrlIs("mock.url.be")).willReturn(gerecht0);
-        mockMvc.perform(delete("/gerechten/url/{url}", "mock.url.be")
+        given(gerechtRepository.findByNaamIs("Gerecht1")).willReturn(gerecht0);
+        mockMvc.perform(delete("/gerechten/naam/{naam}", "Gerecht1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void givenNoGerecht_whenDeleteGerecht_thenReturnStatusNotFound() throws Exception {
-        given(gerechtRepository.findByUrlIs("mock123.url.be")).willReturn(null);
+        given(gerechtRepository.findByNaamIs("Gerecht12345")).willReturn(null);
 
-        mockMvc.perform(delete("/gerechten/url/{url}", "mock123.url.be")
+        mockMvc.perform(delete("/gerechten/naam/{naam}", "Gerecht12345")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
