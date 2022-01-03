@@ -18,9 +18,9 @@ public class GerechtRestController{
     @PostConstruct
     public void fillDB(){
         if(gerechtRepository.count()==0){
-            gerechtRepository.save(new Gerecht(1, "Vegan ijskoffie met havermelk", "Nederland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
-            gerechtRepository.save(new Gerecht(4, "tiramisu", "Belgie", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk12"));
-            gerechtRepository.save(new Gerecht(5, "mokka ijs", "Duitsland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk123"));
+            gerechtRepository.save(new Gerecht("Caffé machiato", "Vegan ijskoffie met havermelk", "Nederland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk"));
+            gerechtRepository.save(new Gerecht("Espresso", "tiramisu", "Belgie", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk12"));
+            gerechtRepository.save(new Gerecht("Barraquito", "mokka ijs", "Duitsland", 310, true, true, true, 1, "ah.be/allerhande/recept/R-R1193909/vegan-ijskoffie-met-havermelk123"));
         }
     }
 
@@ -62,9 +62,9 @@ public class GerechtRestController{
         return gerechtRepository.findAllByAfkomstContaining(afkomst);
     }
 
-    @GetMapping("/gerechten/koffiedrank/{koffieDrankId}")
-    public List<Gerecht> findAllByKoffieDrankId(@PathVariable int koffieDrankId){
-        return gerechtRepository.findAllByKoffieDrankId(koffieDrankId);
+    @GetMapping("/gerechten/koffiedrank/{koffieDrankNaam}")
+    public List<Gerecht> findAllByKoffieDrankNaamContaining(@PathVariable String koffieDrankNaam){
+        return gerechtRepository.findAllByKoffieDrankNaamContaining(koffieDrankNaam);
     }
 
     @PostMapping("/gerechten/")
@@ -113,7 +113,7 @@ public class GerechtRestController{
         gerecht.setKcal(gerechtDTO.getKcal());
         gerecht.setAfkomst(gerechtDTO.getAfkomst());
         gerecht.setAantalPersonen(gerechtDTO.getAantalPersonen());
-        gerecht.setKoffieDrankId(gerechtDTO.getKoffieDrankId());
+        gerecht.setKoffieDrankNaam(gerechtDTO.getKoffieDrankNaam());
 
         return gerecht;
     }

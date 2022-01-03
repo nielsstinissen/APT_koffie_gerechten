@@ -36,7 +36,7 @@ public class GerechtenControllerUnitTests {
 
     @Test
     public void givenName_whenGetGerechtByName_returnJsonGerecht() throws Exception {
-        Gerecht gerecht0 = new Gerecht(1, "Gerecht1", "Belgie", 100, false, true, true, 5, "mock.url.be");
+        Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, false, true, true, 5, "mock.url.be");
 
         given(gerechtRepository.findAllByNaamContaining("Gerecht1")).willReturn(gerecht0);
 
@@ -55,8 +55,8 @@ public class GerechtenControllerUnitTests {
 
     @Test
     public void getGerechtByVegan_returnJsonGerechten() throws Exception {
-        Gerecht gerecht0 = new Gerecht(1, "Gerecht1", "Belgie", 100, false, true, true, 5, "mock.url.be");
-        Gerecht gerecht1 = new Gerecht(2, "Gerecht3", "Belgie", 80, false, true, true, 5, "mock2.url.be");
+        Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, false, true, true, 5, "mock.url.be");
+        Gerecht gerecht1 = new Gerecht("Barrequito", "Gerecht3", "Belgie", 80, false, true, true, 5, "mock2.url.be");
 
         List<Gerecht> gerechten = new ArrayList<>();
         gerechten.add(gerecht0);
@@ -68,7 +68,7 @@ public class GerechtenControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[0].naam", is("Gerecht1")))
                 .andExpect(jsonPath("$[0].afkomst", is("Belgie")))
                 .andExpect(jsonPath("$[1].kcal", is(80.0)))
@@ -81,8 +81,8 @@ public class GerechtenControllerUnitTests {
 
     @Test
     public void getGerechtByIsVegetarisch_returnJsonGerechten() throws Exception {
-        Gerecht gerecht0 = new Gerecht(1, "Gerecht1", "Belgie", 100, false, true, true, 5, "mock.url.be");
-        Gerecht gerecht1 = new Gerecht(2, "Gerecht3", "Belgie", 80, false, true, true, 5, "mock2.url.be");
+        Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, false, true, true, 5, "mock.url.be");
+        Gerecht gerecht1 = new Gerecht("Barrequito", "Gerecht3", "Belgie", 80, false, true, true, 5, "mock2.url.be");
 
         List<Gerecht> gerechten = new ArrayList<>();
         gerechten.add(gerecht0);
@@ -95,7 +95,7 @@ public class GerechtenControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[0].naam", is("Gerecht1")))
                 .andExpect(jsonPath("$[0].afkomst", is("Belgie")))
                 .andExpect(jsonPath("$[1].kcal", is(80.0)))
@@ -108,8 +108,8 @@ public class GerechtenControllerUnitTests {
 
     @Test
     public void getGerechtByIsGlutenVrij_returnJsonGerechten() throws Exception {
-        Gerecht gerecht0 = new Gerecht(1, "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
-        Gerecht gerecht1 = new Gerecht(2, "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
+        Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
+        Gerecht gerecht1 = new Gerecht("Barrequito", "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
 
         List<Gerecht> gerechten = new ArrayList<>();
         gerechten.add(gerecht0);
@@ -121,7 +121,7 @@ public class GerechtenControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[0].naam", is("Gerecht1")))
                 .andExpect(jsonPath("$[0].afkomst", is("Belgie")))
                 .andExpect(jsonPath("$[1].kcal", is(80.0)))
@@ -135,8 +135,8 @@ public class GerechtenControllerUnitTests {
     @Test
     public void givenKcal_whenGetGerechtByKcal_returnJsonGerechten() throws Exception {
 
-        Gerecht gerecht0 = new Gerecht(1, "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
-        Gerecht gerecht1 = new Gerecht(2, "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
+        Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
+        Gerecht gerecht1 = new Gerecht("Barrequito", "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
 
         List<Gerecht> gerechten = new ArrayList<>();
         gerechten.add(gerecht0);
@@ -148,7 +148,7 @@ public class GerechtenControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[0].naam", is("Gerecht1")))
                 .andExpect(jsonPath("$[0].afkomst", is("Belgie")))
                 .andExpect(jsonPath("$[1].kcal", is(80.0)))
@@ -161,8 +161,8 @@ public class GerechtenControllerUnitTests {
 
     @Test
     public void givenAantalPersonen_whenGetGerechtByAantalPersonen_returnJsonGerechten() throws Exception {
-        Gerecht gerecht0 = new Gerecht(1, "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
-        Gerecht gerecht1 = new Gerecht(2, "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
+        Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
+        Gerecht gerecht1 = new Gerecht("Barrequito", "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
 
         List<Gerecht> gerechten = new ArrayList<>();
         gerechten.add(gerecht0);
@@ -174,7 +174,7 @@ public class GerechtenControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[0].naam", is("Gerecht1")))
                 .andExpect(jsonPath("$[0].afkomst", is("Belgie")))
                 .andExpect(jsonPath("$[1].kcal", is(80.0)))
@@ -187,8 +187,8 @@ public class GerechtenControllerUnitTests {
 
     @Test
     public void givenLandAfkomst_whenGetGerechtByLandAfkomst_returnJsonGerechten() throws Exception {
-        Gerecht gerecht0 = new Gerecht(1, "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
-        Gerecht gerecht1 = new Gerecht(2, "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
+        Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
+        Gerecht gerecht1 = new Gerecht("Barrequito", "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
 
         List<Gerecht> gerechten = new ArrayList<>();
         gerechten.add(gerecht0);
@@ -200,7 +200,7 @@ public class GerechtenControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[0].naam", is("Gerecht1")))
                 .andExpect(jsonPath("$[0].afkomst", is("Belgie")))
                 .andExpect(jsonPath("$[1].kcal", is(80.0)))
@@ -212,22 +212,22 @@ public class GerechtenControllerUnitTests {
     }
 
     @Test
-    public void givenKoffieDrankId_whenGetGerechtByKoffieDrankId_returnJsonGerechten() throws Exception {
-        Gerecht gerecht0 = new Gerecht(1, "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
-        Gerecht gerecht1 = new Gerecht(1, "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
+    public void givenKoffieDrankNaam_whenGetGerechtByKoffieDrankNaam_returnJsonGerechten() throws Exception {
+        Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
+        Gerecht gerecht1 = new Gerecht("Espresso", "Gerecht3", "Belgie", 80, true, true, true, 5, "mock2.url.be");
 
         List<Gerecht> gerechten = new ArrayList<>();
         gerechten.add(gerecht0);
         gerechten.add(gerecht1);
 
-        given(gerechtRepository.findAllByKoffieDrankId(1)).willReturn(gerechten);
+        given(gerechtRepository.findAllByKoffieDrankNaamContaining("Espresso")).willReturn(gerechten);
 
 
-        mockMvc.perform(get("/gerechten/koffiedrank/{koffieDrankId}",1))
+        mockMvc.perform(get("/gerechten/koffiedrank/{koffieDrankNaam}","Espresso"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[0].naam", is("Gerecht1")))
                 .andExpect(jsonPath("$[0].afkomst", is("Belgie")))
                 .andExpect(jsonPath("$[1].kcal", is(80.0)))
@@ -240,7 +240,7 @@ public class GerechtenControllerUnitTests {
 
     @Test
     public void whenPostGerecht_returnJsonGerecht() throws Exception{
-        Gerecht newGerecht = new Gerecht(1,"TestPost", "Belgie", 100, true, false, false, 8, "mock.url.be");
+        Gerecht newGerecht = new Gerecht("Espresso","TestPost", "Belgie", 100, true, false, false, 8, "mock.url.be");
 
         mockMvc.perform(post("/gerechten/")
                 .content(mapper.writeValueAsString(newGerecht))
@@ -260,8 +260,8 @@ public class GerechtenControllerUnitTests {
     @Test
     public void givenGerecht_whenPutGerecht_thenReturnJsonGerecht() throws Exception {
 
-        Gerecht updatedGerecht = new Gerecht(5, "Gerecht31", "Nederland", 130, false, false, true, 4, "mock.url.be");
-        Gerecht gerecht = new Gerecht(1, "Gerecht1", "Belgie", 130, false, false, true, 4, "mock.url.be");
+        Gerecht updatedGerecht = new Gerecht("Café Machiato", "Gerecht31", "Nederland", 130, false, false, true, 4, "mock.url.be");
+        Gerecht gerecht = new Gerecht("Espresso", "Gerecht1", "Belgie", 130, false, false, true, 4, "mock.url.be");
         given(gerechtRepository.findByUrlIs("mock.url.be")).willReturn(gerecht);
 
         mockMvc.perform(put("/gerechten/url/{url}", "mock.url.be")
@@ -281,7 +281,7 @@ public class GerechtenControllerUnitTests {
 
     @Test
     public void givenGerecht_whenDeleteGerecht_thenReturnStatusOk() throws Exception {
-        Gerecht gerecht0 = new Gerecht(1, "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
+        Gerecht gerecht0 = new Gerecht("Espresso", "Gerecht1", "Belgie", 100, true, true, true, 5, "mock.url.be");
 
         given(gerechtRepository.findByUrlIs("mock.url.be")).willReturn(gerecht0);
         mockMvc.perform(delete("/gerechten/url/{url}", "mock.url.be")

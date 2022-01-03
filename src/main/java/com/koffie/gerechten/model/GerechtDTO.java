@@ -2,7 +2,7 @@ package com.koffie.gerechten.model;
 
 public class GerechtDTO {
     private String id;
-    private int koffieDrankId;
+    private String koffieDrankNaam;
     private String naam;
     private String afkomst;
     private double kcal;
@@ -20,12 +20,12 @@ public class GerechtDTO {
         this.id = id;
     }
 
-    public int getKoffieDrankId() {
-        return koffieDrankId;
+    public String getKoffieDrankNaam() {
+        return koffieDrankNaam;
     }
 
-    public void setKoffieDrankId(int koffieDrankId) {
-        this.koffieDrankId = koffieDrankId;
+    public void setKoffieDrankNaam(String koffieDrankNaam) {
+        this.koffieDrankNaam = koffieDrankNaam;
     }
 
     public String getNaam() {

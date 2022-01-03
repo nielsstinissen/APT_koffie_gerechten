@@ -29,11 +29,11 @@ public class GerechtenControllerIntegrationTests {
     @Autowired
     private GerechtRepository gerechtRepository;
 
-    private Gerecht gerecht1 = new Gerecht(1, "Gerecht1", "Nederland", 200, true, false, true, 4, "mock1.url.be");
-    private Gerecht gerecht2 = new Gerecht(1, "Gerecht30", "Belgie", 30, false, false, false, 1, "mock23.url.be");
-    private Gerecht gerecht3 = new Gerecht(2, "Gerecht3", "Duitsland", 130, false, false, true, 4, "mock50.url.be");
-    private Gerecht gerecht4 = new Gerecht(40,"Gerecht87", "Frankrijk", 210, false, false, true, 2, "mock12.url.be");
-    private Gerecht gerecht5 = new Gerecht(32,"Gerecht100", "Nederland", 350, true, true, true, 3, "mock.url.be");
+    private Gerecht gerecht1 = new Gerecht("Espresso", "Gerecht1", "Nederland", 200, true, false, true, 4, "mock1.url.be");
+    private Gerecht gerecht2 = new Gerecht("Espresso", "Gerecht30", "Belgie", 30, false, false, false, 1, "mock23.url.be");
+    private Gerecht gerecht3 = new Gerecht("Barrequito", "Gerecht3", "Duitsland", 130, false, false, true, 4, "mock50.url.be");
+    private Gerecht gerecht4 = new Gerecht("Caffé Macchiato","Gerecht87", "Frankrijk", 210, false, false, true, 2, "mock12.url.be");
+    private Gerecht gerecht5 = new Gerecht("Barrequito","Gerecht100", "Nederland", 350, true, true, true, 3, "mock.url.be");
 
     @BeforeEach
     public void beforeAllTests(){
@@ -87,7 +87,6 @@ public class GerechtenControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (32)))
                 .andExpect(jsonPath("$[0].naam", is("Gerecht100")))
                 .andExpect(jsonPath("$[0].afkomst", is("Nederland")))
                 .andExpect(jsonPath("$[0].kcal", is(350.0)))
@@ -105,7 +104,6 @@ public class GerechtenControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(4)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
                 .andExpect(jsonPath("$[2].naam", is("Gerecht87")))
                 .andExpect(jsonPath("$[3].afkomst", is("Nederland")))
                 .andExpect(jsonPath("$[0].kcal", is(200.0)))
@@ -120,7 +118,7 @@ public class GerechtenControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[1].naam", is("Gerecht100")))
                 .andExpect(jsonPath("$[1].afkomst", is("Nederland")))
                 .andExpect(jsonPath("$[0].kcal", is(200.0)))
@@ -135,7 +133,7 @@ public class GerechtenControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[1].naam", is("Gerecht3")))
                 .andExpect(jsonPath("$[1].afkomst", is("Duitsland")))
                 .andExpect(jsonPath("$[0].kcal", lessThan(150.0)))
@@ -149,7 +147,7 @@ public class GerechtenControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[1].naam", is("Gerecht3")))
                 .andExpect(jsonPath("$[1].afkomst", is("Duitsland")))
                 .andExpect(jsonPath("$[0].aantalPersonen", is(4)))
@@ -163,16 +161,16 @@ public class GerechtenControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].koffieDrankId", is (1)))
+                .andExpect(jsonPath("$[0].koffieDrankNaam", is ("Espresso")))
                 .andExpect(jsonPath("$[1].naam", is("Gerecht100")))
                 .andExpect(jsonPath("$[0].afkomst", is("Nederland")))
                 .andExpect(jsonPath("$[1].afkomst", is("Nederland")));
     }
 
     @Test
-    public void givenKoffieDrankId_whenGetGerechtByKoffieDrankId_returnJsonGerechten() throws Exception {
+    public void givenKoffieDrankNaam_whenGetGerechtByKoffieDrankNaam_returnJsonGerechten() throws Exception {
 
-        mockMvc.perform(get("/gerechten/koffiedrank/{koffieDrankId}",1))
+        mockMvc.perform(get("/gerechten/koffiedrank/{koffieDrankNaam}","Espresso"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -188,7 +186,7 @@ public class GerechtenControllerIntegrationTests {
 
     @Test
     public void whenPostGerecht_returnJsonGerecht() throws Exception{
-        Gerecht newGerecht = new Gerecht(1,"TestPost", "Belgie", 100, true, false, false, 8, "mock.url.be");
+        Gerecht newGerecht = new Gerecht("Espresso","TestPost", "Belgie", 100, true, false, false, 8, "mock.url.be");
         mockMvc.perform(post("/gerechten/")
                 .content(mapper.writeValueAsString(newGerecht))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -207,7 +205,7 @@ public class GerechtenControllerIntegrationTests {
     @Test
     public void givenGerecht_whenPutGerecht_thenReturnJsonGerecht() throws Exception {
 
-        Gerecht updatedGerecht = new Gerecht(5, "Gerecht31", "Nederland", 130, false, false, true, 4, "mock.url.be");
+        Gerecht updatedGerecht = new Gerecht("Espresso", "Gerecht31", "Nederland", 130, false, false, true, 4, "mock.url.be");
 
         mockMvc.perform(put("/gerechten/url/{url}", "mock.url.be")
                 .content(mapper.writeValueAsString(updatedGerecht))
