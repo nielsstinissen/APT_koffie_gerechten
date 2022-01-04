@@ -79,6 +79,7 @@ public class GerechtRestController{
         Gerecht updatedGerecht = convertGerechtDTOToGerecht(updatedGerechtDTO);
 
         Gerecht retrievedGerecht = gerechtRepository.findByNaamIs(naam);
+        retrievedGerecht.setKoffieDrankNaam(updatedGerecht.getKoffieDrankNaam());
         retrievedGerecht.setNaam(updatedGerecht.getNaam());
         retrievedGerecht.setAantalPersonen(updatedGerecht.getAantalPersonen());
         retrievedGerecht.setAfkomst(updatedGerecht.getAfkomst());
